@@ -7,7 +7,7 @@ const scaleFactor = 1.2;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const numPoints = 50;
+const numPoints = 35;
 const radius = 80 * scaleFactor; // Adjust radius based on scale factor
 let points = [];
 let centerX = canvas.width / 2;
@@ -43,14 +43,14 @@ navigator.mediaDevices.getUserMedia({ audio: true })
     });
 
 // Define damping factor
-const damping = 0.05;
+const damping = 0.1;
 // Adjust base oscillation speed based on audio level to reduce speed when no audio is present
-const baseOscillationSpeed = 0.0002; // Initial base oscillation speed
-const minOscillationSpeed = 0.0001; // Minimum oscillation speed when no audio is present
+const baseOscillationSpeed = 0.00002; // Initial base oscillation speed
+const minOscillationSpeed = 0.00001; // Minimum oscillation speed when no audio is present
 // Define maximum oscillation amplitude
 let maxAmplitude = 5;
 // Define rhythm modulation factor
-let rhythmModulationFactor = 0.5; // Adjust to change the intensity of rhythm modulation
+let rhythmModulationFactor = 1; // Adjust to change the intensity of rhythm modulation
 // Define audio sensitivity
 const audioSensitivity = 0.8; // Adjust to increase or decrease sensitivity to audio input
 
