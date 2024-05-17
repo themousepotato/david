@@ -60,9 +60,9 @@ function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw the bounding box
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(boxPadding, boxPadding, boxWidth, boxHeight);
+    // ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    // ctx.lineWidth = 2;
+    // ctx.strokeRect(boxPadding, boxPadding, boxWidth, boxHeight);
 
     analyser.getByteFrequencyData(dataArray);
 
