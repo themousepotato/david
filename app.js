@@ -1,3 +1,4 @@
+// visualizer.js
 const canvas = document.getElementById('visualizer');
 const ctx = canvas.getContext('2d');
 
@@ -6,23 +7,29 @@ const scaleFactor = 1.2;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const numPoints = 20;
-const radius = 500 * scaleFactor; // Adjust radius based on scale factor
+const numPoints = 50;
+const radius = 80 * scaleFactor; // Adjust radius based on scale factor
 let points = [];
 let centerX = canvas.width / 2;
 let centerY = canvas.height / 2;
+const boxPadding = 50; // Padding from canvas edges
+const boxWidth = canvas.width - 2 * boxPadding;
+const boxHeight = canvas.height - 2 * boxPadding;
 
 for (let i = 0; i < numPoints; i++) {
     let angle = (i / numPoints) * Math.PI * 2;
     points.push({
         angle: angle,
-        radiusOffset: Math.random() * 30 * scaleFactor // Adjust radius offset based on scale factor
+        radiusOffset: Math.random() * 30 * scaleFactor, // Adjust radius offset based on scale factor
+        x: centerX,
+        y: centerY,
+        type: 'default' // Default type for all points initially
     });
 }
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 const analyser = audioContext.createAnalyser();
-analyser.fftSize = 32;
+analyser.fftSize = 256; // Increased fftSize for more frequency bands
 const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
 navigator.mediaDevices.getUserMedia({ audio: true })
@@ -36,25 +43,26 @@ navigator.mediaDevices.getUserMedia({ audio: true })
     });
 
 // Define damping factor
-const damping = 0.01;
+const damping = 0.05;
 // Adjust base oscillation speed based on audio level to reduce speed when no audio is present
-const baseOscillationSpeed = 0.00002; // Initial base oscillation speed
-const minOscillationSpeed = 0.00001; // Minimum oscillation speed when no audio is present
+const baseOscillationSpeed = 0.0002; // Initial base oscillation speed
+const minOscillationSpeed = 0.0001; // Minimum oscillation speed when no audio is present
 // Define maximum oscillation amplitude
-let maxAmplitude = 10;
+let maxAmplitude = 5;
 // Define rhythm modulation factor
-let rhythmModulationFactor = 1.0; // Adjust to change the intensity of rhythm modulation
+let rhythmModulationFactor = 0.5; // Adjust to change the intensity of rhythm modulation
 // Define audio sensitivity
-const audioSensitivity = 0.5; // Adjust to increase or decrease sensitivity to audio input
-
-// Define arrays to store previous positions of points
-let prevX = [];
-let prevY = [];
+const audioSensitivity = 0.8; // Adjust to increase or decrease sensitivity to audio input
 
 function animate() {
     requestAnimationFrame(animate);
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the bounding box
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(boxPadding, boxPadding, boxWidth, boxHeight);
 
     analyser.getByteFrequencyData(dataArray);
 
@@ -68,7 +76,8 @@ function animate() {
 
     for (let i = 0; i < numPoints; i++) {
         let point = points[i];
-        let adjustedRadius = radius + point.radiusOffset + radiusAdjustment * i / numPoints;
+        let stretchFactor = 1 + Math.sin(performance.now() * baseOscillationSpeed + point.angle) * radiusAdjustment * 0.05;
+        let adjustedRadius = radius + point.radiusOffset + radiusAdjustment * stretchFactor;
         let targetX = centerX + adjustedRadius * Math.cos(point.angle);
         let targetY = centerY + adjustedRadius * Math.sin(point.angle);
 
@@ -76,13 +85,18 @@ function animate() {
         point.x += (targetX - point.x) * damping;
         point.y += (targetY - point.y) * damping;
 
-        // Apply rhythmic oscillation modulation
-        let rhythmModulation = Math.sin(performance.now() * baseOscillationSpeed * audioLevel * rhythmModulationFactor);
-        let angleModulation = Math.sin(performance.now() * baseOscillationSpeed * audioLevel * rhythmModulationFactor * 2); // Adjust to change modulation frequency
-        let randomOffset = (Math.random() * 2 - 1) * maxAmplitude;
+        // Ensure points stay within the bounding box
+        if (point.x < boxPadding) point.x = boxPadding;
+        if (point.x > canvas.width - boxPadding) point.x = canvas.width - boxPadding;
+        if (point.y < boxPadding) point.y = boxPadding;
+        if (point.y > canvas.height - boxPadding) point.y = canvas.height - boxPadding;
 
-        // Apply subtle oscillation with randomness
-        point.angle += oscillationSpeed + rhythmModulation + angleModulation + randomOffset;
+        // Apply rhythmic oscillation modulation
+        let rhythmModulation = Math.sin(performance.now() * baseOscillationSpeed * rhythmModulationFactor) * 0.05;
+        let angleModulation = Math.sin(performance.now() * baseOscillationSpeed * rhythmModulationFactor * 2) * 0.05; // Adjust to change modulation frequency
+
+        // Apply subtle oscillation with reduced randomness
+        point.angle += rhythmModulation + angleModulation;
 
         // Draw curve to the point
         if (i === 0) {
@@ -95,8 +109,16 @@ function animate() {
         }
     }
 
+    // Close the path and fill the shape with gradient
     ctx.closePath();
-    ctx.fillStyle = 'black';
+
+    // Create a radial gradient for a dark ferrofluid effect
+    let gradient = ctx.createRadialGradient(centerX, centerY, radius * 0.1, centerX, centerY, radius);
+    gradient.addColorStop(0, 'rgba(20, 20, 40, 1)');
+    gradient.addColorStop(0.5, 'rgba(10, 10, 30, 1)');
+    gradient.addColorStop(1, 'rgba(0, 0, 20, 1)');
+
+    ctx.fillStyle = gradient;
     ctx.fill();
 }
 
@@ -109,7 +131,6 @@ for (let i = 0; i < numPoints; i++) {
     points[i].y = y;
     points[i].angle = angle;
 }
-
 
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth * scaleFactor;
