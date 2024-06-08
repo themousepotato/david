@@ -10,6 +10,11 @@ export const visuals = [
     path: './visualizations/ferrofluid'
   },
   {
+    name: 'Bars Circle',
+    slug: 'barscircle',
+    path: './visualizations/barscircle'
+  },
+  {
     name: 'Bars',
     slug: 'bars',
     path: './visualizations/bars'
