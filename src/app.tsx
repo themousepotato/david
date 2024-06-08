@@ -1,5 +1,5 @@
-import { For, type Component, lazy, ParentProps } from 'solid-js';
-import { Router, Route } from '@solidjs/router';
+import { For, type Component, lazy } from 'solid-js';
+import { Router } from '@solidjs/router';
 import { visuals } from './visualizations';
 
 const links = [
@@ -25,7 +25,7 @@ const routes = [
     component: lazy(() => import('./pages/visual')),
     children: visuals.map((v) => ({
       path: v.slug,
-      component: lazy(() => import(v.path)),
+      component: lazy(() => import(`./visualizations/${v.path}.tsx`)),
       children: []
     }))
   },

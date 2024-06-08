@@ -18,6 +18,8 @@
   "dependencies": {
     "@solidjs/router": "^0.13.5",
     "@types/three": "^0.165.0",
+    "lil-gui": "^0.19.2",
+    "simplex-noise": "^4.0.1",
     "solid-js": "^1.8.11",
     "three": "^0.165.0"
   }

@@ -7,16 +7,16 @@ export const visuals = [
   {
     name: 'Ferro Fluid',
     slug: 'ferrofluid',
-    path: './visualizations/ferrofluid'
+    path: 'ferrofluid'
   },
   {
     name: 'Bars Circle',
     slug: 'barscircle',
-    path: './visualizations/barscircle'
+    path: 'barscircle'
   },
   {
     name: 'Bars',
     slug: 'bars',
-    path: './visualizations/bars'
+    path: 'bars'
   }
 ] as const

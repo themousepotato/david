@@ -38,13 +38,9 @@ export default function Bars() {
   camera.lookAt(0, 0, 0);
 
 
-  // const cube = new THREE.Mesh(geometry, material);
-
-
-  // const cube = new THREE.Mesh(geometry, material);
   const analyzer = useAnalyzer({
     fftSize: 256,
-    onStream: stream => animate()
+    onStream: () => animate()
   })
 
 
