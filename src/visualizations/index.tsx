@@ -10,6 +10,11 @@ export const visuals = [
     path: 'ferrofluid'
   },
   {
+    name: 'Ferro Fluid1',
+    slug: 'ferrofluid1',
+    path: 'ferrofluid1'
+  },
+  {
     name: 'Bars Circle',
     slug: 'barscircle',
     path: 'barscircle'
