@@ -20,15 +20,21 @@ const routes = [
     component: lazy(() => import('./pages/about')),
     children: [],
   },
+  // {
+  //   path: '/',
+  //   component: lazy(() => import('./pages/visual')),
+  //   children: visuals.map((v) => ({
+  //     path: v.slug,
+  //     component: lazy(() => import(`./visualizations/${v.path}.tsx`)),
+  //     children: []
+  //   }))
+  // },
   {
     path: '/',
-    component: lazy(() => import('./pages/visual')),
-    children: visuals.map((v) => ({
-      path: v.slug,
-      component: lazy(() => import(`./visualizations/${v.path}.tsx`)),
-      children: []
-    }))
-  },
+    component: lazy(() => import('./visualizations/ferrofluid')),
+    children: [],
+    allowImportingTsExtensions: true,
+  }
 ]
 
 const App: Component = () => {

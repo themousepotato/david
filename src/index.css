@@ -1,16 +1,22 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: monospace;
-  color: #000;
-  background-color: #fff;
+  font-family: 'Helvetica Neue', sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  height: 100%;
 }
 
 nav {
-  position: absolute;
   top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
-  padding: 0.5em;
+  justify-content: center;
+  padding: 0.75em;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px;
+  border-color: #7c7c7c;
 }
 
 nav ul {
@@ -20,8 +26,16 @@ nav ul {
   margin: 0;
 }
 
-a {
-  color: #000;
+nav a {
+  color: #333;
   text-decoration: none;
   margin: 0 1em;
+  padding: 0.5em;
+  font-weight: 500;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+  border-radius: 4px;
 }

@@ -4,24 +4,24 @@ export type Visual = {
   path: string;
 }
 export const visuals = [
-  {
-    name: 'Ferro Fluid',
-    slug: 'ferrofluid',
-    path: 'ferrofluid'
-  },
-  {
-    name: 'Ferro Fluid1',
-    slug: 'ferrofluid1',
-    path: 'ferrofluid1'
-  },
-  {
-    name: 'Bars Circle',
-    slug: 'barscircle',
-    path: 'barscircle'
-  },
-  {
-    name: 'Bars',
-    slug: 'bars',
-    path: 'bars'
-  }
+  // {
+  //   name: 'FerroFluid',
+  //   slug: 'ferrofluid0',
+  //   path: 'ferrofluid0'
+  // },
+  // {
+  //   name: 'Ferrofluid',
+  //   slug: 'ferrofluid',
+  //   path: 'ferrofluid'
+  // },
+  // {
+  //   name: 'Bars Circle',
+  //   slug: 'barscircle',
+  //   path: 'barscircle'
+  // },
+  // {
+  //   name: 'Bars',
+  //   slug: 'bars',
+  //   path: 'bars'
+  // }
 ] as const
