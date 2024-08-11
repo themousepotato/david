@@ -53,7 +53,7 @@ const App: Component = () => {
               )}
             </For>
           </ul>
-          <ul>
+          {/* <ul>
             <For each={visuals}>
               {(v) => (
                 <li>
@@ -63,7 +63,7 @@ const App: Component = () => {
                 </li>
               )}
             </For>
-          </ul>
+          </ul> */}
         </nav>
         <main>
           {props.children}
