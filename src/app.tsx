@@ -1,6 +1,5 @@
 import { For, type Component, lazy } from 'solid-js';
 import { Router } from '@solidjs/router';
-import { visuals } from './visualizations';
 
 const links = [
   {
@@ -20,15 +19,6 @@ const routes = [
     component: lazy(() => import('./pages/about')),
     children: [],
   },
-  // {
-  //   path: '/',
-  //   component: lazy(() => import('./pages/visual')),
-  //   children: visuals.map((v) => ({
-  //     path: v.slug,
-  //     component: lazy(() => import(`./visualizations/${v.path}.tsx`)),
-  //     children: []
-  //   }))
-  // },
   {
     path: '/',
     component: lazy(() => import('./visualizations/ferrofluid')),
@@ -41,30 +31,18 @@ const App: Component = () => {
   return (
     <Router root={(props) => (
       <>
-        <nav>
-          <ul class="flex">
-            <For each={links}>
-              {({ name, href }) => (
-                <li>
-                  <a href={href}>
-                    {name}
-                  </a>
-                </li>
-              )}
-            </For>
-          </ul>
-          {/* <ul>
-            <For each={visuals}>
-              {(v) => (
-                <li>
-                  <a href={'/' + v.slug}>
-                    {v.name}
-                  </a>
-                </li>
-              )}
-            </For>
-          </ul> */}
+      <header class="header">
+        <div class="logo">DAVID</div>
+        <nav class="menu">
+          <For each={links}>
+            {({ name, href }) => (
+              <a href={href} class="link">
+                {name}
+              </a>
+            )}
+          </For>
         </nav>
+      </header>
         <main>
           {props.children}
         </main>
