@@ -3,6 +3,7 @@
 html, body {
   font-family: 'Dosis', sans-serif;
   font-weight: 300;
+  font-size: 20px;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -32,32 +33,34 @@ html, body {
 }
 
 .link {
-  padding: 15px 20px;
+  position: relative;
+  display: inline-block;
+  /* padding: 15px 0; */
+  margin: 15px 25px;
   text-decoration: none;
   text-transform: uppercase;
   color: #0f0f0f;
   font-weight: 800;
-  font-size: 20px;
-  position: relative;
+  font-size: 24px;
+  transition: color 0.3s ease;
 }
 
 .link::after {
   content: '';
-  display: block;
-  width: 100%;
-  height: 5px;
-  background: black;
   position: absolute;
-  bottom: 0;
   left: 0;
-  opacity: 0;
-  transform: translateY(5px);
-  transition: opacity 300ms, transform 300ms;
+  bottom: -3px;
+  width: 100%;
+  height: 4px;
+  background-color: #303030;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
 }
 
 .link:hover::after {
-  opacity: 1;
-  transform: translateY(0);
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 @media (max-width: 768px) {
