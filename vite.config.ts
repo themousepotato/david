@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 
 export default defineConfig({
+  base: '/david/',
   plugins: [
     /* 
     Uncomment the following line to enable solid-devtools.
