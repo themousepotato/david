@@ -4,23 +4,23 @@ import { Router } from '@solidjs/router';
 const links = [
   {
     name: 'Home',
-    href: '/',
+    href: '/david/',
   },
   {
     name: 'About',
-    href: '/about',
+    href: '/david/about',
   },
 ]
 
 
 const routes = [
   {
-    path: '/about',
+    path: '/david/about',
     component: lazy(() => import('./pages/about')),
     children: [],
   },
   {
-    path: '/',
+    path: '/david/',
     component: lazy(() => import('./visualizations/ferrofluid')),
     children: [],
     allowImportingTsExtensions: true,
